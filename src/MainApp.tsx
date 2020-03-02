@@ -1,15 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+
+import ApolloClient from 'apollo-boost';
+
+import {Parite} from './Parite';
+import {ApolloProvider} from '@apollo/react-hooks';
+
+const client = new ApolloClient({
+  uri: 'http://10.0.1.34:3000/graphql',
+});
 
 export const MainApp = () => {
   return (
@@ -18,6 +17,9 @@ export const MainApp = () => {
       <SafeAreaView>
         <View style={styles.container}>
           <Text style={styles.title}>Play Parite</Text>
+          <ApolloProvider client={client}>
+            <Parite />
+          </ApolloProvider>
         </View>
       </SafeAreaView>
     </>
