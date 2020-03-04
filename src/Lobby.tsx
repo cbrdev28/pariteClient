@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Subheading, ActivityIndicator} from 'react-native-paper';
+import {Title, ActivityIndicator} from 'react-native-paper';
 import {useQuery} from '@apollo/react-hooks';
 
 import {LOBBY} from './PariteQueriesMutations';
@@ -21,7 +21,7 @@ export const Lobby = (props: LobbyProps) => {
 
   return (
     <View style={styles.container}>
-      <Subheading>Lobby</Subheading>
+      <Title>Play Parité</Title>
       <Users users={lobby?.users} />
       <PariteGames pariteGames={lobby?.pariteGames} />
     </View>
@@ -30,6 +30,7 @@ export const Lobby = (props: LobbyProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

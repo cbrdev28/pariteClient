@@ -34,6 +34,7 @@ export const PariteGames = (props: PariteGamesProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     alignSelf: 'stretch',
   },

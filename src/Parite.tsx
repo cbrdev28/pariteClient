@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 
 import {UserData} from './PariteSchema';
 import {CreateUser} from './CreateUser';
 import {Lobby} from './Lobby';
-import {Title} from 'react-native-paper';
 
 export const Parite = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -15,8 +14,9 @@ export const Parite = () => {
 
   return (
     <View style={styles.container}>
-      <Title>Play Parite</Title>
-      <Lobby user={currentUser} />
+      <SafeAreaView>
+        <Lobby user={currentUser} />
+      </SafeAreaView>
     </View>
   );
 };
