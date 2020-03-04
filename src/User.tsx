@@ -10,20 +10,20 @@ interface UserProps {
 export const User = (props: UserProps) => {
   return (
     <Surface style={styles.surface}>
-      {/* <Avatar.Icon size={28} icon="folder" /> */}
+      {/* <Text>{props.user.id}</Text> */}
+      <Avatar.Icon size={40} icon="account" />
       <Text>{props.user.name}</Text>
     </Surface>
-    // <Text>{props.user.name}</Text>
   );
 };
 
 const styles = StyleSheet.create({
   surface: {
     padding: 8,
-    // height: 80,
-    // width: 80,
+    margin: 4,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
+    borderRadius: 4,
   },
 });

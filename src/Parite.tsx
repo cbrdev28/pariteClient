@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import {UserData} from './PariteSchema';
 import {CreateUser} from './CreateUser';
 import {Lobby} from './Lobby';
+import {Title} from 'react-native-paper';
 
 export const Parite = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -14,12 +15,7 @@ export const Parite = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Play Parite</Text>
-      {currentUser?.userId === undefined ? (
-        <CreateUser onCreated={didCreateUser} />
-      ) : (
-        <Text>YASS: {currentUser.name}</Text>
-      )}
+      <Title>Play Parite</Title>
       <Lobby user={currentUser} />
     </View>
   );
@@ -30,11 +26,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-  },
-  subTitle: {
-    fontSize: 24,
   },
 });

@@ -1,41 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
-
-import {gql} from 'apollo-boost';
+import {StyleSheet, View} from 'react-native';
+import {Subheading, ActivityIndicator} from 'react-native-paper';
 import {useQuery} from '@apollo/react-hooks';
+
+import {LOBBY} from './PariteQueriesMutations';
 import {LobbyData, UserData} from './PariteSchema';
 
-import {User} from './User';
-
-const LOBBY = gql`
-  {
-    lobby {
-      id
-      title
-      users {
-        id
-        name
-      }
-      pariteGames {
-        id
-        title
-        cards {
-          id
-          faceUp
-          color
-          value
-        }
-        players {
-          id
-          ready
-          user {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
+import {Users} from './Users';
+import {PariteGames} from './PariteGames';
 
 interface LobbyProps {
   user: UserData;
@@ -49,20 +21,9 @@ export const Lobby = (props: LobbyProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subTitle}>Lobby</Text>
-      <View style={styles.container}>
-        <Text>Users:</Text>
-        <View style={styles.separator} />
-        {lobby?.users.map(user => (
-          <View style={styles.userContainer} key={user.id}>
-            <Text>{user.id}. </Text>
-            <Text style={props?.user?.id == user.id ? styles.currentUser : {}}>
-              {user.name}
-            </Text>
-            <User user={user} />
-          </View>
-        ))}
-      </View>
+      <Subheading>Lobby</Subheading>
+      <Users users={lobby?.users} />
+      <PariteGames pariteGames={lobby?.pariteGames} />
     </View>
   );
 };
@@ -71,22 +32,5 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  subTitle: {
-    fontSize: 24,
-  },
-  separator: {
-    backgroundColor: 'black',
-    height: StyleSheet.hairlineWidth,
-    alignSelf: 'stretch',
-  },
-  userContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  currentUser: {
-    fontWeight: 'bold',
-    color: 'green',
   },
 });

@@ -15,7 +15,8 @@ export interface UserData {
 export interface PariteGameData {
   id: number;
   title: string;
-  cards: CardData;
+  cards: [CardData];
+  players: [PlayerData];
 }
 
 export interface CardData {
