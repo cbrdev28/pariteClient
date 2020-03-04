@@ -12,7 +12,6 @@ import {gql} from 'apollo-boost';
 import {useMutation} from '@apollo/react-hooks';
 
 import {UserData} from './PariteSchema';
-import {CurrentUser} from './CurrentUser';
 
 const CREATE_USER = gql`
   mutation CreateUser($name: String!) {
@@ -26,14 +25,14 @@ const CREATE_USER = gql`
 `;
 
 interface CreateUserProps {
-  onCreated: (newUser: CurrentUser) => void;
+  onCreated: (newUser: UserData) => void;
 }
 
 export const CreateUser = (props: CreateUserProps) => {
-  const [createUser, {loading, data}] = useMutation(CREATE_USER);
   const [userText, setUserText] = useState('');
+  const [createUser, {loading, data}] = useMutation(CREATE_USER);
 
-  const didCreateUser = () => {
+  const didTapCreateUser = () => {
     createUser({variables: {name: userText}});
   };
 
@@ -45,11 +44,7 @@ export const CreateUser = (props: CreateUserProps) => {
   if (data) {
     if (data?.createUser?.user?.id) {
       const userData: UserData = data.createUser.user;
-      const newUser: CurrentUser = {
-        userId: userData.id,
-        name: userData.name,
-      };
-      props.onCreated(newUser);
+      props.onCreated(userData);
     }
   }
 
@@ -62,7 +57,7 @@ export const CreateUser = (props: CreateUserProps) => {
           value={userText}
           onChangeText={userTextDidChange}
         />
-        <TouchableOpacity style={styles.button} onPress={didCreateUser}>
+        <TouchableOpacity style={styles.button} onPress={didTapCreateUser}>
           <Text>Create!</Text>
         </TouchableOpacity>
       </View>

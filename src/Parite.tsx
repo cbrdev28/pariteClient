@@ -1,29 +1,24 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-import {CurrentUser} from './CurrentUser';
+import {UserData} from './PariteSchema';
 import {CreateUser} from './CreateUser';
 import {Lobby} from './Lobby';
 
-interface PariteProps {
-  user: CurrentUser;
-}
+export const Parite = () => {
+  const [currentUser, setCurrentUser] = useState();
 
-export const Parite = (props: PariteProps) => {
-  const [currentUser, setCurrentUser] = useState(props.user);
-
-  const didCreateUser = (createdUser: CurrentUser) => {
+  const didCreateUser = (createdUser: UserData) => {
     setCurrentUser(createdUser);
   };
 
   return (
     <View style={styles.container}>
-      {currentUser.userId === undefined ? (
+      <Text style={styles.title}>Play Parite</Text>
+      {currentUser?.userId === undefined ? (
         <CreateUser onCreated={didCreateUser} />
       ) : (
-        <View>
-          <Text>YASS: {currentUser.name}</Text>
-        </View>
+        <Text>YASS: {currentUser.name}</Text>
       )}
       <Lobby user={currentUser} />
     </View>
@@ -32,8 +27,12 @@ export const Parite = (props: PariteProps) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: 28,
   },
   subTitle: {
     fontSize: 24,

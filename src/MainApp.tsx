@@ -1,11 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 
 import ApolloClient from 'apollo-boost';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 import {Parite} from './Parite';
 import {ApolloProvider} from '@apollo/react-hooks';
-import {CurrentUser} from './CurrentUser';
 
 const client = new ApolloClient({
   uri: 'http://10.0.1.34:3000/graphql',
@@ -14,25 +14,11 @@ const client = new ApolloClient({
 export const MainApp = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <View style={styles.container}>
-          <Text style={styles.title}>Play Parite</Text>
-          <ApolloProvider client={client}>
-            <Parite user={CurrentUser.get()} />
-          </ApolloProvider>
-        </View>
-      </SafeAreaView>
+      <ApolloProvider client={client}>
+        <PaperProvider>
+          <Parite />
+        </PaperProvider>
+      </ApolloProvider>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-  },
-});

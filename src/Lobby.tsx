@@ -3,8 +3,9 @@ import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 
 import {gql} from 'apollo-boost';
 import {useQuery} from '@apollo/react-hooks';
-import {CurrentUser} from './CurrentUser';
-import {LobbyData} from './PariteSchema';
+import {LobbyData, UserData} from './PariteSchema';
+
+import {User} from './User';
 
 const LOBBY = gql`
   {
@@ -37,7 +38,7 @@ const LOBBY = gql`
 `;
 
 interface LobbyProps {
-  user: CurrentUser;
+  user: UserData;
 }
 
 export const Lobby = (props: LobbyProps) => {
@@ -55,10 +56,10 @@ export const Lobby = (props: LobbyProps) => {
         {lobby?.users.map(user => (
           <View style={styles.userContainer} key={user.id}>
             <Text>{user.id}. </Text>
-            <Text
-              style={props.user.userId == user.id ? styles.currentUser : {}}>
+            <Text style={props?.user?.id == user.id ? styles.currentUser : {}}>
               {user.name}
             </Text>
+            <User user={user} />
           </View>
         ))}
       </View>
