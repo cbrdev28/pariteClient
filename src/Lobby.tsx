@@ -8,6 +8,7 @@ import {LobbyData, UserData} from './PariteSchema';
 
 import {Users} from './Users';
 import {PariteGames} from './PariteGames';
+import {User} from './User';
 
 interface LobbyProps {
   user: UserData;
@@ -22,7 +23,10 @@ export const Lobby = (props: LobbyProps) => {
   return (
     <View style={styles.container}>
       <Title>Play Parité</Title>
-      <Users users={lobby?.users} />
+      {props?.user?.id && (
+        <User isCurrentUser={true} user={{id: 2828, name: 'CBR: Mouloud'}} />
+      )}
+      <Users users={lobby?.users} currentUserId={props?.user?.id} />
       <PariteGames pariteGames={lobby?.pariteGames} />
     </View>
   );

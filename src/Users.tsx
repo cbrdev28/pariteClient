@@ -7,6 +7,7 @@ import {User} from './User';
 
 interface UsersProps {
   users: [UserData];
+  currentUserId?: number;
 }
 export const Users = (props: UsersProps) => {
   return (
@@ -15,7 +16,11 @@ export const Users = (props: UsersProps) => {
       <View style={styles.userContainer}>
         <ScrollView horizontal={true}>
           {props?.users.map(user => (
-            <User key={user.id} user={user} />
+            <User
+              key={user.id}
+              user={user}
+              isCurrentUser={props.currentUserId === user.id}
+            />
           ))}
         </ScrollView>
       </View>
