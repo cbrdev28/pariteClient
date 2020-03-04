@@ -5,6 +5,7 @@ import ApolloClient from 'apollo-boost';
 
 import {Parite} from './Parite';
 import {ApolloProvider} from '@apollo/react-hooks';
+import {CurrentUser} from './CurrentUser';
 
 const client = new ApolloClient({
   uri: 'http://10.0.1.34:3000/graphql',
@@ -18,7 +19,7 @@ export const MainApp = () => {
         <View style={styles.container}>
           <Text style={styles.title}>Play Parite</Text>
           <ApolloProvider client={client}>
-            <Parite />
+            <Parite user={CurrentUser.get()} />
           </ApolloProvider>
         </View>
       </SafeAreaView>

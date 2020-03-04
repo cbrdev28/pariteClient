@@ -1,57 +1,41 @@
-import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
 
-import {gql} from 'apollo-boost';
-import {useQuery} from '@apollo/react-hooks';
+import {CurrentUser} from './CurrentUser';
+import {CreateUser} from './CreateUser';
+import {Lobby} from './Lobby';
 
-const QUERY_LOBBY = gql`
-  {
-    lobby {
-      id
-      title
-      users {
-        id
-        name
-      }
-      pariteGames {
-        id
-        title
-        cards {
-          id
-          faceUp
-          color
-          value
-        }
-        players {
-          user {
-            name
-          }
-          cards {
-            id
-            value
-            color
-            faceUp
-          }
-        }
-      }
-    }
-  }
-`;
+interface PariteProps {
+  user: CurrentUser;
+}
 
-export const Parite = () => {
-  const {loading, error, data} = useQuery(QUERY_LOBBY);
+export const Parite = (props: PariteProps) => {
+  const [currentUser, setCurrentUser] = useState(props.user);
+
+  const didCreateUser = (createdUser: CurrentUser) => {
+    setCurrentUser(createdUser);
+  };
 
   return (
     <View style={styles.container}>
-      {loading === true ? <ActivityIndicator /> : <Text>YASS</Text>}
+      {currentUser.userId === undefined ? (
+        <CreateUser onCreated={didCreateUser} />
+      ) : (
+        <View>
+          <Text>YASS: {currentUser.name}</Text>
+        </View>
+      )}
+      <Lobby user={currentUser} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  subTitle: {
+    fontSize: 24,
   },
 });
