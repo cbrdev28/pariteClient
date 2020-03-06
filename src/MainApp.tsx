@@ -1,7 +1,12 @@
+// React navigation wants this import at the very top
+import 'react-native-gesture-handler';
+
 import React from 'react';
 
 import ApolloClient from 'apollo-boost';
 import {Provider as PaperProvider} from 'react-native-paper';
+
+import {NavigationContainer} from '@react-navigation/native';
 
 import {Parite} from './Parite';
 import {ApolloProvider} from '@apollo/react-hooks';
@@ -13,9 +18,11 @@ const client = new ApolloClient({
 export const MainApp = () => {
   return (
     <ApolloProvider client={client}>
-      <PaperProvider>
-        <Parite />
-      </PaperProvider>
+      <NavigationContainer>
+        <PaperProvider>
+          <Parite />
+        </PaperProvider>
+      </NavigationContainer>
     </ApolloProvider>
   );
 };
