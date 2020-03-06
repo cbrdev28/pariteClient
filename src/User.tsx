@@ -11,7 +11,6 @@ interface UserProps {
 export const User = (props: UserProps) => {
   return (
     <Surface style={styles.surface}>
-      {/* <Text>{props.user.id}</Text> */}
       <Avatar.Icon
         size={40}
         icon={props.isCurrentUser ? 'account-circle' : 'account'}

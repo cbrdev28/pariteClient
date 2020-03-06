@@ -1,24 +1,24 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {Subheading, DataTable} from 'react-native-paper';
+import {Headline, DataTable} from 'react-native-paper';
 
 import {PariteGameData} from './PariteSchema';
 import {PariteGame} from './PariteGame';
 
 interface PariteGamesProps {
-  pariteGames: [PariteGameData];
+  pariteGames: PariteGameData[];
 }
 export const PariteGames = (props: PariteGamesProps) => {
   return (
     <View style={styles.container}>
-      <Subheading>Tap to join a game</Subheading>
+      <Headline>Tap to join a game</Headline>
       <DataTable>
         <DataTable.Header>
           <DataTable.Title>Games</DataTable.Title>
           <DataTable.Title numeric>Players</DataTable.Title>
         </DataTable.Header>
         <ScrollView>
-          {props.pariteGames.map(pariteGame => (
+          {props?.pariteGames?.map(pariteGame => (
             <PariteGame key={pariteGame.id} pariteGame={pariteGame} />
           ))}
         </ScrollView>

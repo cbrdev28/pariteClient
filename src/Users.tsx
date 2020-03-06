@@ -1,21 +1,21 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {Subheading} from 'react-native-paper';
+import {Headline} from 'react-native-paper';
 
 import {UserData} from './PariteSchema';
 import {User} from './User';
 
 interface UsersProps {
-  users: [UserData];
+  users: UserData[];
   currentUserId?: number;
 }
 export const Users = (props: UsersProps) => {
   return (
     <View style={styles.container}>
-      <Subheading>Users</Subheading>
+      <Headline>Users</Headline>
       <View style={styles.userContainer}>
         <ScrollView horizontal={true}>
-          {props?.users.map(user => (
+          {props?.users?.map(user => (
             <User
               key={user.id}
               user={user}

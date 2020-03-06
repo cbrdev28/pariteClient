@@ -3,8 +3,8 @@
 export interface LobbyData {
   id: number;
   title: string;
-  users: [UserData];
-  pariteGames: [PariteGameData];
+  users: UserData[];
+  pariteGames: PariteGameData[];
 }
 
 export interface UserData {
@@ -15,8 +15,8 @@ export interface UserData {
 export interface PariteGameData {
   id: number;
   title: string;
-  cards: [CardData];
-  players: [PlayerData];
+  cards: CardData[];
+  players: PlayerData[];
 }
 
 export interface CardData {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Title, ActivityIndicator} from 'react-native-paper';
 import {useQuery} from '@apollo/react-hooks';
@@ -8,26 +8,46 @@ import {LobbyData, UserData} from './PariteSchema';
 
 import {Users} from './Users';
 import {PariteGames} from './PariteGames';
-import {User} from './User';
+import {CurrentUser} from './CurrentUser';
+import {CreateUser} from './CreateUser';
 
 interface LobbyProps {
   user: UserData;
+  onUserCreated: (createdUser: UserData) => void;
 }
 
 export const Lobby = (props: LobbyProps) => {
-  const {loading, error, data} = useQuery(LOBBY);
+  const [showCreateUser, setShowCreateUser] = useState(false);
+  const {loading, error, data, refetch} = useQuery(LOBBY, {
+    fetchPolicy: 'network-only',
+  });
 
   if (loading) return <ActivityIndicator />;
-  const lobby: LobbyData = data?.lobby;
+  const lobby: LobbyData = {...data?.lobby};
 
   return (
     <View style={styles.container}>
       <Title>Play Parité</Title>
-      {props?.user?.id && (
-        <User isCurrentUser={true} user={{id: 2828, name: 'CBR: Mouloud'}} />
-      )}
+      <CurrentUser
+        user={props?.user}
+        onPress={() => {
+          setShowCreateUser(true);
+        }}
+      />
       <Users users={lobby?.users} currentUserId={props?.user?.id} />
       <PariteGames pariteGames={lobby?.pariteGames} />
+
+      {/* CreateUser is a modal */}
+      <CreateUser
+        visible={props?.user?.id === undefined && showCreateUser}
+        onCreated={user => {
+          props.onUserCreated(user);
+          refetch;
+        }}
+        onDismiss={() => {
+          setShowCreateUser(false);
+        }}
+      />
     </View>
   );
 };

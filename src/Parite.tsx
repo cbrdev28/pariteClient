@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {StyleSheet, View, SafeAreaView} from 'react-native';
 
 import {UserData} from './PariteSchema';
-import {CreateUser} from './CreateUser';
 import {Lobby} from './Lobby';
 
 export const Parite = () => {
@@ -15,7 +14,7 @@ export const Parite = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-        <Lobby user={currentUser} />
+        <Lobby user={currentUser} onUserCreated={didCreateUser} />
       </SafeAreaView>
     </View>
   );

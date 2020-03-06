@@ -1,5 +1,4 @@
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
 
 import ApolloClient from 'apollo-boost';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -13,12 +12,10 @@ const client = new ApolloClient({
 
 export const MainApp = () => {
   return (
-    <>
-      <ApolloProvider client={client}>
-        <PaperProvider>
-          <Parite />
-        </PaperProvider>
-      </ApolloProvider>
-    </>
+    <ApolloProvider client={client}>
+      <PaperProvider>
+        <Parite />
+      </PaperProvider>
+    </ApolloProvider>
   );
 };

@@ -1,30 +1,22 @@
 import React, {useState} from 'react';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import {
-  StyleSheet,
-  View,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
+  Portal,
+  Modal,
+  Surface,
+  Headline,
   TextInput,
-} from 'react-native';
+  Button,
+} from 'react-native-paper';
 
-import {gql} from 'apollo-boost';
 import {useMutation} from '@apollo/react-hooks';
 
 import {UserData} from './PariteSchema';
-
-const CREATE_USER = gql`
-  mutation CreateUser($name: String!) {
-    createUser(input: {name: $name}) {
-      user {
-        id
-        name
-      }
-    }
-  }
-`;
+import {CREATE_USER} from './PariteQueriesMutations';
 
 interface CreateUserProps {
+  visible: boolean;
+  onDismiss: () => void;
   onCreated: (newUser: UserData) => void;
 }
 
@@ -42,50 +34,54 @@ export const CreateUser = (props: CreateUserProps) => {
 
   if (loading) return <ActivityIndicator />;
   if (data) {
-    if (data?.createUser?.user?.id) {
+    if (
+      data?.createUser?.user?.id &&
+      Array.isArray(data?.createUser?.user?.lobby?.users)
+    ) {
       const userData: UserData = data.createUser.user;
       props.onCreated(userData);
     }
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subTitle}>Create User</Text>
-      <View style={styles.form}>
-        <TextInput
-          style={styles.textInput}
-          value={userText}
-          onChangeText={userTextDidChange}
-        />
-        <TouchableOpacity style={styles.button} onPress={didTapCreateUser}>
-          <Text>Create!</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <Portal>
+      <Modal visible={props.visible} onDismiss={props.onDismiss}>
+        <Surface style={styles.surface}>
+          <View style={styles.container}>
+            <Headline>Choose a user name</Headline>
+            <TextInput
+              style={styles.textInput}
+              label="User name"
+              value={userText}
+              onChangeText={userTextDidChange}
+            />
+            <Button
+              icon={'account-plus'}
+              mode="contained"
+              disabled={!userText}
+              onPress={didTapCreateUser}>
+              Done
+            </Button>
+          </View>
+        </Surface>
+      </Modal>
+    </Portal>
   );
 };
 
 const styles = StyleSheet.create({
+  surface: {
+    marginTop: -128,
+    paddingVertical: 8,
+    marginHorizontal: 28,
+    elevation: 8,
+    borderRadius: 8,
+  },
   container: {
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  subTitle: {
-    fontSize: 20,
-  },
-  form: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   textInput: {
-    minWidth: 64,
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'black',
+    marginVertical: 8,
+    alignSelf: 'stretch',
   },
 });
