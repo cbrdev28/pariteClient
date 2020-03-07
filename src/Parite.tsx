@@ -12,12 +12,14 @@ const StackNavigator = createStackNavigator();
 
 export const Parite = () => {
   const [currentUser, setCurrentUser] = useState();
+  const [currentGameId, setCurrentGameId] = useState();
 
   const didCreateUser = (createdUser: UserData) => {
     setCurrentUser(createdUser);
   };
 
-  const didTapPariteGame = () => {
+  const didTapPariteGame = (pariteGameId: number) => {
+    setCurrentGameId(pariteGameId);
     NavigationRef.navigate('Game', {});
   };
 
@@ -33,7 +35,7 @@ export const Parite = () => {
         )}
       </StackNavigator.Screen>
       <StackNavigator.Screen name="Game">
-        {() => <Game gameId={28} />}
+        {() => <Game gameId={currentGameId} currentUser={currentUser} />}
       </StackNavigator.Screen>
     </StackNavigator.Navigator>
   );

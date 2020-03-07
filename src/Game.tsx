@@ -1,9 +1,18 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Headline} from 'react-native-paper';
 
-export const Game = (props: {gameId: number}) => (
+import {UserData} from './PariteSchema';
+
+interface GameProps {
+  gameId: number;
+  currentUser: UserData;
+}
+
+export const Game = (props: GameProps) => (
   <View style={styles.container}>
-    <Text>Home Screen for Game id: {props.gameId}</Text>
+    <Headline>Home Screen for Game id: {props.gameId}</Headline>
+    <Headline>Current user name: {props.currentUser.name}</Headline>
   </View>
 );
 

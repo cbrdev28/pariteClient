@@ -14,7 +14,7 @@ import {CreateUser} from './CreateUser';
 interface LobbyProps {
   user: UserData;
   onUserCreated: (createdUser: UserData) => void;
-  onPariteGameSelected: () => void;
+  onPariteGameSelected: (pariteGameId: number) => void;
 }
 
 export const Lobby = (props: LobbyProps) => {
@@ -25,6 +25,14 @@ export const Lobby = (props: LobbyProps) => {
 
   if (loading) return <ActivityIndicator />;
   const lobby: LobbyData = {...data?.lobby};
+
+  const didTapPariteGame = (pariteGameId: number) => {
+    if (props?.user?.id) {
+      props.onPariteGameSelected(pariteGameId);
+      return;
+    }
+    setShowCreateUser(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -38,7 +46,7 @@ export const Lobby = (props: LobbyProps) => {
       <Users users={lobby?.users} currentUserId={props?.user?.id} />
       <PariteGames
         pariteGames={lobby?.pariteGames}
-        onGameSelected={props.onPariteGameSelected}
+        onGameSelected={didTapPariteGame}
       />
 
       {/* CreateUser is a modal */}
