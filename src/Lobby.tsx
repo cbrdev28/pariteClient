@@ -14,6 +14,7 @@ import {CreateUser} from './CreateUser';
 interface LobbyProps {
   user: UserData;
   onUserCreated: (createdUser: UserData) => void;
+  onPariteGameSelected: () => void;
 }
 
 export const Lobby = (props: LobbyProps) => {
@@ -35,7 +36,10 @@ export const Lobby = (props: LobbyProps) => {
         }}
       />
       <Users users={lobby?.users} currentUserId={props?.user?.id} />
-      <PariteGames pariteGames={lobby?.pariteGames} />
+      <PariteGames
+        pariteGames={lobby?.pariteGames}
+        onGameSelected={props.onPariteGameSelected}
+      />
 
       {/* CreateUser is a modal */}
       <CreateUser
@@ -56,6 +60,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
 });

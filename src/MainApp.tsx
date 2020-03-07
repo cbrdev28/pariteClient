@@ -4,12 +4,14 @@ import 'react-native-gesture-handler';
 import React from 'react';
 
 import ApolloClient from 'apollo-boost';
+import {ApolloProvider} from '@apollo/react-hooks';
+
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import {NavigationContainer} from '@react-navigation/native';
 
+import {navigationRef} from './NavigationRef';
 import {Parite} from './Parite';
-import {ApolloProvider} from '@apollo/react-hooks';
 
 const client = new ApolloClient({
   uri: 'http://10.0.1.34:3000/graphql',
@@ -18,7 +20,7 @@ const client = new ApolloClient({
 export const MainApp = () => {
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <PaperProvider>
           <Parite />
         </PaperProvider>

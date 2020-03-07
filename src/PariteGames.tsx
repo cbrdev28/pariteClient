@@ -4,9 +4,11 @@ import {Headline, DataTable} from 'react-native-paper';
 
 import {PariteGameData} from './PariteSchema';
 import {PariteGame} from './PariteGame';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface PariteGamesProps {
   pariteGames: PariteGameData[];
+  onGameSelected: () => void;
 }
 export const PariteGames = (props: PariteGamesProps) => {
   return (
@@ -19,7 +21,11 @@ export const PariteGames = (props: PariteGamesProps) => {
         </DataTable.Header>
         <ScrollView>
           {props?.pariteGames?.map(pariteGame => (
-            <PariteGame key={pariteGame.id} pariteGame={pariteGame} />
+            <TouchableOpacity
+              key={pariteGame.id}
+              onPress={props.onGameSelected}>
+              <PariteGame pariteGame={pariteGame} />
+            </TouchableOpacity>
           ))}
         </ScrollView>
         <DataTable.Pagination

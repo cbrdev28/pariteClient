@@ -71,7 +71,7 @@ export const CreateUser = (props: CreateUserProps) => {
 
 const styles = StyleSheet.create({
   surface: {
-    marginTop: -128,
+    marginTop: -160,
     paddingVertical: 8,
     marginHorizontal: 28,
     elevation: 8,

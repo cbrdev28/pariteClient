@@ -1,8 +1,14 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+
+import {createStackNavigator} from '@react-navigation/stack';
+
+import * as NavigationRef from './NavigationRef';
 
 import {UserData} from './PariteSchema';
 import {Lobby} from './Lobby';
+import {Game} from './Game';
+
+const StackNavigator = createStackNavigator();
 
 export const Parite = () => {
   const [currentUser, setCurrentUser] = useState();
@@ -11,19 +17,24 @@ export const Parite = () => {
     setCurrentUser(createdUser);
   };
 
+  const didTapPariteGame = () => {
+    NavigationRef.navigate('Game', {});
+  };
+
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <Lobby user={currentUser} onUserCreated={didCreateUser} />
-      </SafeAreaView>
-    </View>
+    <StackNavigator.Navigator initialRouteName="Lobby">
+      <StackNavigator.Screen name="Lobby">
+        {() => (
+          <Lobby
+            user={currentUser}
+            onUserCreated={didCreateUser}
+            onPariteGameSelected={didTapPariteGame}
+          />
+        )}
+      </StackNavigator.Screen>
+      <StackNavigator.Screen name="Game">
+        {() => <Game gameId={28} />}
+      </StackNavigator.Screen>
+    </StackNavigator.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
