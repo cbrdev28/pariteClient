@@ -10,6 +10,7 @@ import {Users} from './Users';
 import {PariteGames} from './PariteGames';
 import {CurrentUser} from './CurrentUser';
 import {CreateUser} from './CreateUser';
+import {CreateGame} from './CreateGame';
 
 interface LobbyProps {
   user: UserData;

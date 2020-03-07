@@ -12,18 +12,15 @@ export const LOBBY = gql`
       pariteGames {
         id
         title
-        cards {
-          id
-          faceUp
-          color
-          value
-        }
         players {
           id
-          ready
           user {
-            name
+            id
           }
+        }
+        lobby {
+          id
+          title
         }
       }
     }

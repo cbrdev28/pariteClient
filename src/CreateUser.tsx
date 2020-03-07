@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   Portal,
   Modal,
@@ -7,6 +7,7 @@ import {
   Headline,
   TextInput,
   Button,
+  ActivityIndicator,
 } from 'react-native-paper';
 
 import {useMutation} from '@apollo/react-hooks';
