@@ -30,4 +30,5 @@ export interface PlayerData {
   id: number;
   ready: boolean;
   user: UserData;
+  cards: CardData[];
 }

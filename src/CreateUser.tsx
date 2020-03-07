@@ -36,6 +36,8 @@ export const CreateUser = (props: CreateUserProps) => {
   if (data) {
     if (
       data?.createUser?.user?.id &&
+      // This part of the check could be deleted but
+      // I don't know if it will break the "create user experience"
       Array.isArray(data?.createUser?.user?.lobby?.users)
     ) {
       const userData: UserData = data.createUser.user;

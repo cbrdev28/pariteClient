@@ -47,3 +47,89 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const PARITE_GAME = gql`
+  query PariteGame($pariteGameId: ID!) {
+    pariteGame(pariteGameId: $pariteGameId) {
+      id
+      title
+      cards {
+        id
+        color
+        faceUp
+        value
+        player {
+          id
+          ready
+        }
+        pariteGame {
+          id
+          title
+        }
+      }
+      players {
+        id
+        ready
+        user {
+          id
+          name
+        }
+        pariteGame {
+          id
+          title
+        }
+        cards {
+          id
+          color
+          faceUp
+          value
+          player {
+            id
+            ready
+          }
+          pariteGame {
+            id
+            title
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const JOIN_PARITE_GAME = gql`
+  mutation JoinPariteGame($userId: ID!, $pariteGameId: ID!) {
+    joinPariteGame(input: {userId: $userId, pariteGameId: $pariteGameId}) {
+      pariteGame {
+        id
+        title
+        players {
+          id
+          ready
+          user {
+            id
+            name
+          }
+          pariteGame {
+            id
+            title
+          }
+          cards {
+            id
+            color
+            faceUp
+            value
+            player {
+              id
+              ready
+            }
+            pariteGame {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+`;
