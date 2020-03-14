@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Title, ActivityIndicator} from 'react-native-paper';
+import {Title, ActivityIndicator, Button} from 'react-native-paper';
 import {useQuery} from '@apollo/react-hooks';
 
 import {LOBBY} from './PariteQueriesMutations';
@@ -10,7 +10,6 @@ import {Users} from './Users';
 import {PariteGames} from './PariteGames';
 import {CurrentUser} from './CurrentUser';
 import {CreateUser} from './CreateUser';
-import {CreateGame} from './CreateGame';
 
 interface LobbyProps {
   user: UserData;
@@ -35,8 +34,18 @@ export const Lobby = (props: LobbyProps) => {
     setShowCreateUser(true);
   };
 
+  const didCreateUser = (user: UserData) => {
+    props.onUserCreated(user);
+    refetch;
+  };
+
+  const refreshQuerry = () => {
+    refetch;
+  };
+
   return (
     <View style={styles.container}>
+      <Button onPress={refreshQuerry}>Refresh</Button>
       <Title>Play Parité</Title>
       <CurrentUser
         user={props?.user}
@@ -53,10 +62,7 @@ export const Lobby = (props: LobbyProps) => {
       {/* CreateUser is a modal */}
       <CreateUser
         visible={props?.user?.id === undefined && showCreateUser}
-        onCreated={user => {
-          props.onUserCreated(user);
-          refetch;
-        }}
+        onCreated={didCreateUser}
         onDismiss={() => {
           setShowCreateUser(false);
         }}
@@ -69,6 +75,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 });

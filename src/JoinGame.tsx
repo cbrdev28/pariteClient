@@ -35,7 +35,7 @@ export const JoinGame = (props: JoinGameProps) => {
       player => player.user.id === props.currentUser.id,
     );
     if (!joinedPlayer) {
-      console.error('Could not find current users as joined player');
+      // console.error('Could not find current users as joined player');
       return <></>;
     }
     props.onPlayerJoined(joinedPlayer);

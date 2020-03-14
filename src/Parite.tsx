@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -7,6 +7,7 @@ import * as NavigationRef from './NavigationRef';
 import {UserData} from './PariteSchema';
 import {Lobby} from './Lobby';
 import {Game} from './Game';
+import * as LocalStorage from './LocalStorage';
 
 const StackNavigator = createStackNavigator();
 
@@ -14,7 +15,21 @@ export const Parite = () => {
   const [currentUser, setCurrentUser] = useState();
   const [currentGameId, setCurrentGameId] = useState();
 
+  useEffect(() => {
+    if (currentUser) {
+      return;
+    }
+    LocalStorage.getCurrentUser().then(localUserData => {
+      if (!localUserData) {
+        // Nothing!!
+      } else {
+        setCurrentUser(localUserData);
+      }
+    });
+  });
+
   const didCreateUser = (createdUser: UserData) => {
+    LocalStorage.setCurrentUser(createdUser);
     setCurrentUser(createdUser);
   };
 

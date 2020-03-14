@@ -22,6 +22,7 @@ export const User = (props: UserProps) => {
 
 const styles = StyleSheet.create({
   surface: {
+    flex: 1,
     padding: 8,
     margin: 4,
     alignItems: 'center',

@@ -130,3 +130,97 @@ export const JOIN_PARITE_GAME = gql`
     }
   }
 `;
+
+export const CONTROLLER_PLAYER = gql`
+  query PariteGame($pariteGameId: ID!) {
+    pariteGame(pariteGameId: $pariteGameId) {
+      id
+      cards {
+        id
+        color
+        faceUp
+        value
+        player {
+          id
+          ready
+        }
+        pariteGame {
+          id
+          title
+        }
+      }
+      players {
+        id
+        ready
+        user {
+          id
+          name
+        }
+        cards {
+          id
+          color
+          faceUp
+          value
+          player {
+            id
+            ready
+          }
+          pariteGame {
+            id
+            title
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const PLAYER_DRAW = gql`
+  mutation PlayerDraw($playerId: ID!, $pariteGameId: ID!) {
+    playerDraw(input: {playerId: $playerId, pariteGameId: $pariteGameId}) {
+      pariteGame {
+        id
+        cards {
+          id
+          color
+          faceUp
+          value
+          player {
+            id
+            ready
+          }
+          pariteGame {
+            id
+            title
+          }
+        }
+        players {
+          id
+          ready
+          user {
+            id
+            name
+          }
+          pariteGame {
+            id
+            title
+          }
+          cards {
+            id
+            color
+            faceUp
+            value
+            player {
+              id
+              ready
+            }
+            pariteGame {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+`;
