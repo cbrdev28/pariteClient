@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   Portal,
   Modal,
@@ -7,6 +7,7 @@ import {
   Headline,
   TextInput,
   Button,
+  ActivityIndicator,
 } from 'react-native-paper';
 
 import {useMutation} from '@apollo/react-hooks';
@@ -36,6 +37,8 @@ export const CreateUser = (props: CreateUserProps) => {
   if (data) {
     if (
       data?.createUser?.user?.id &&
+      // This part of the check could be deleted but
+      // I don't know if it will break the "create user experience"
       Array.isArray(data?.createUser?.user?.lobby?.users)
     ) {
       const userData: UserData = data.createUser.user;
@@ -71,7 +74,7 @@ export const CreateUser = (props: CreateUserProps) => {
 
 const styles = StyleSheet.create({
   surface: {
-    marginTop: -128,
+    marginTop: -160,
     paddingVertical: 8,
     marginHorizontal: 28,
     elevation: 8,
